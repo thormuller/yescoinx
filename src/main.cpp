@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
-// Copyright (c) 2013 ABCCoin developers
+// Copyright (c) 2013 YesCoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -66,7 +66,7 @@ map<uint256, map<uint256, CDataStream*> > mapOrphanTransactionsByPrev;
 // Constant stuff for coinbase transactions we create:
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "ABCCoin Signed Message:\n";
+const string strMessageMagic = "YesCoin Signed Message:\n";
 
 double dHashesPerSec = 0.0;
 int64 nHPSTimerStart = 0;
@@ -1251,30 +1251,31 @@ static const int64 nMinSubsidy = 1 * COIN;
 int64 static GetBlockValue(int nHeight, int64 nFees)
 {
     int64 nSubsidy = nStartSubsidy;
+    if (nHeight == 7) {nSubsidy = 1250000 * COIN;}   
 
     // Mining phase: Subsidy is cut in half every SubsidyHalvingInterval
-    nSubsidy >>= (nHeight / Params().SubsidyHalvingInterval());
+    // nSubsidy >>= (nHeight / Params().SubsidyHalvingInterval());
     
     // Inflation phase: Subsidy reaches minimum subsidy
     // Network is rewarded for transaction processing with transaction fees and 
     // the inflationary subsidy
-    if (nSubsidy < nMinSubsidy)
-    {
-        nSubsidy = nMinSubsidy;
-    }
+    // if (nSubsidy < nMinSubsidy)
+    // {
+    //     nSubsidy = nMinSubsidy;
+    // }
 
     return nSubsidy + nFees;
 }
 
-static const int64 nTargetTimespan = 60; // 1 minutes
-static const int64 nTargetSpacing = 30; // 30 seconds
+static const int64 nTargetTimespan = 120; // 1 minutes
+static const int64 nTargetSpacing = 60; // 30 seconds
 static const int64 nInterval = nTargetTimespan / nTargetSpacing; // 2 blocks
 
 static const int64 nAveragingInterval = nInterval * 20; // 40 blocks
 static const int64 nAveragingTargetTimespan = nAveragingInterval * nTargetSpacing; // 40 minutes
 
 static const int64 nMaxAdjustDown = 20; // 20% adjustment down
-static const int64 nMaxAdjustUp = 10; // 10% adjustment up
+static const int64 nMaxAdjustUp = 5; // 5% adjustment up
 
 static const int64 nTargetTimespanAdjDown = nTargetTimespan * (100 + nMaxAdjustDown) / 100;
 
@@ -4598,7 +4599,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
         return false;
 
     //// debug print
-    printf("ABCCoinMiner:\n");
+    printf("YesCoinMiner:\n");
     printf("proof-of-work found  \n  hash: %s  \ntarget: %s\n", hash.GetHex().c_str(), hashTarget.GetHex().c_str());
     pblock->print();
     printf("generated %s\n", FormatMoney(pblock->vtx[0].vout[0].nValue).c_str());
@@ -4607,7 +4608,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
     {
         LOCK(cs_main);
         if (pblock->hashPrevBlock != hashBestChain)
-            return error("ABCCoinMiner : generated block is stale");
+            return error("YesCoinMiner : generated block is stale");
 
         // Remove key from key pool
         reservekey.KeepKey();
@@ -4621,7 +4622,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
         // Process this block the same as if we had received it from another node
         CValidationState state;
         if (!ProcessBlock(state, NULL, pblock))
-            return error("ABCCoinMiner : ProcessBlock, block not accepted");
+            return error("YesCoinMiner : ProcessBlock, block not accepted");
     }
 
     return true;
@@ -4629,7 +4630,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
 
 void static BitcoinMiner(CWallet *pwallet)
 {
-    printf("ABCCoinMiner started\n");
+    printf("YesCoinMiner started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
     RenameThread("bitcoin-miner");
 
@@ -4657,7 +4658,7 @@ void static BitcoinMiner(CWallet *pwallet)
         CBlock *pblock = &pblocktemplate->block;
         IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
 
-        printf("Running ABCCoinMiner with %"PRIszu" transactions in block (%u bytes)\n", pblock->vtx.size(),
+        printf("Running YesCoinMiner with %"PRIszu" transactions in block (%u bytes)\n", pblock->vtx.size(),
                ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
 
         //
@@ -4768,7 +4769,7 @@ void static BitcoinMiner(CWallet *pwallet)
     } }
     catch (boost::thread_interrupted)
     {
-        printf("ABCCoinMiner terminated\n");
+        printf("YesCoinMiner terminated\n");
         throw;
     }
 }

@@ -296,7 +296,7 @@ unsigned int GetLegacySigOpCount(const CTransaction& tx);
 
 /** Count ECDSA signature operations in pay-to-script-hash inputs.
 
-    @param[in] mapInputs	Map of previous transactions that have outputs we're spending
+    @param[in] mapInputs    Map of previous transactions that have outputs we're spending
     @return maximum number of sigops required to validate this transaction's inputs
     @see CTransaction::FetchInputs
  */
@@ -1211,8 +1211,8 @@ public:
         Note that lightweight clients may not know anything besides the hash of previous transactions,
         so may not be able to calculate this.
 
-        @param[in] tx	transaction for which we are checking input total
-        @return	Sum of value of all inputs (scriptSigs)
+        @param[in] tx   transaction for which we are checking input total
+        @return Sum of value of all inputs (scriptSigs)
         @see CTransaction::FetchInputs
      */
     int64 GetValueIn(const CTransaction& tx);

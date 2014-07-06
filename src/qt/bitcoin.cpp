@@ -108,7 +108,7 @@ static std::string Translate(const char* psz)
 static void handleRunawayException(std::exception *e)
 {
     PrintExceptionContinue(e, "Runaway exception");
-    QMessageBox::critical(0, "Runaway exception", BitcoinGUI::tr("A fatal error occurred. ABCCoin can no longer continue safely and will quit.") + QString("\n\n") + QString::fromStdString(strMiscWarning));
+    QMessageBox::critical(0, "Runaway exception", BitcoinGUI::tr("A fatal error occurred. YesCoin can no longer continue safely and will quit.") + QString("\n\n") + QString::fromStdString(strMiscWarning));
     exit(1);
 }
 
@@ -174,12 +174,12 @@ int main(int argc, char *argv[])
 
     // Application identification (must be set before OptionsModel is initialized,
     // as it is used to locate QSettings)
-    QApplication::setOrganizationName("ABCCoin");
-    QApplication::setOrganizationDomain("abccoin.org");
+    QApplication::setOrganizationName("YesCoin");
+    QApplication::setOrganizationDomain("yescoin.org");
     if (GetBoolArg("-testnet", false)) // Separate UI settings for testnet
-        QApplication::setApplicationName("ABCCoin-Qt-testnet");
+        QApplication::setApplicationName("YesCoin-Qt-testnet");
     else
-        QApplication::setApplicationName("ABCCoin-Qt");
+        QApplication::setApplicationName("YesCoin-Qt");
 
     // Now that QSettings are accessible, initialize translations
     QTranslator qtTranslatorBase, qtTranslator, translatorBase, translator;
@@ -197,10 +197,10 @@ int main(int argc, char *argv[])
     // Install global event filter that makes sure that long tooltips can be word-wrapped
     app.installEventFilter(new GUIUtil::ToolTipToRichTextFilter(TOOLTIP_WRAP_THRESHOLD, &app));
 
-    // ... then abccoin.conf:
+    // ... then yescoin.conf:
     if (!boost::filesystem::is_directory(GetDataDir(false)))
     {
-        QMessageBox::critical(0, QObject::tr("ABCCoin"),
+        QMessageBox::critical(0, QObject::tr("YesCoin"),
                               QObject::tr("Error: Specified data directory \"%1\" does not exist.").arg(QString::fromStdString(mapArgs["-datadir"])));
         return 1;
     }
@@ -282,7 +282,7 @@ int main(int argc, char *argv[])
                 }
 
                 // Now that initialization/startup is done, process any command-line
-                // abccoin: URIs
+                // yescoin: URIs
                 QObject::connect(paymentServer, SIGNAL(receivedURI(QString)), &window, SLOT(handleURI(QString)));
                 QTimer::singleShot(100, paymentServer, SLOT(uiReady()));
 
@@ -293,7 +293,7 @@ int main(int argc, char *argv[])
                 window.removeAllWallets();
                 guiref = 0;
             }
-            // Shutdown the core and its threads, but don't exit ABCCoin-Qt here
+            // Shutdown the core and its threads, but don't exit YesCoin-Qt here
             threadGroup.interrupt_all();
             threadGroup.join_all();
             Shutdown();

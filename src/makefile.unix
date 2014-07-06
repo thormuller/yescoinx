@@ -147,10 +147,10 @@ OBJS= \
     obj/chainparams.o
 
 
-all: abccoind
+all: yescoind
 
-test check: test_abccoin FORCE
-	./test_abccoin
+test check: test_yescoin FORCE
+	./test_yescoin
 
 #
 # LevelDB support
@@ -178,7 +178,7 @@ obj/%.o: %.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-abccoind: $(OBJS:obj/%=obj/%)
+yescoind: $(OBJS:obj/%=obj/%)
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 
 TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
@@ -190,11 +190,11 @@ obj-test/%.o: test/%.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-test_abccoin: $(TESTOBJS) $(filter-out obj/init.o obj/abccoind.o,$(OBJS:obj/%=obj/%))
+test_yescoin: $(TESTOBJS) $(filter-out obj/init.o obj/yescoind.o,$(OBJS:obj/%=obj/%))
 	$(LINK) $(xCXXFLAGS) -o $@ $(LIBPATHS) $^ $(TESTLIBS) $(xLDFLAGS) $(LIBS)
 
 clean:
-	-rm -f abccoind test_abccoin
+	-rm -f yescoind test_yescoin
 	-rm -f obj/*.o
 	-rm -f obj-test/*.o
 	-rm -f obj/*.P

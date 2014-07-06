@@ -1,6 +1,6 @@
 TEMPLATE = app
-TARGET = abccoin-qt
-macx:TARGET = "ABCCoin-Qt"
+TARGET = yescoin-qt
+macx:TARGET = "YesCoin-Qt"
 VERSION = 0.9.0
 INCLUDEPATH += src src/json src/qt
 QT += core gui network
@@ -310,7 +310,7 @@ SOURCES += src/qt/test/test_main.cpp \
 HEADERS += src/qt/test/uritests.h
 DEPENDPATH += src/qt/test
 QT += testlib
-TARGET = abccoin-qt_test
+TARGET = yescoin-qt_test
 DEFINES += BITCOIN_QT_TEST
   macx: CONFIG -= app_bundle
 }

@@ -96,7 +96,7 @@ OBJS= \
     obj/txdb.o \
     obj/chainparams.o
 
-all: abccoind.exe
+all: yescoind.exe
 
 DEFS += -I"$(CURDIR)/leveldb/include"
 DEFS += -I"$(CURDIR)/leveldb/helpers"
@@ -111,7 +111,7 @@ DEFS += -DHAVE_BUILD_INFO
 obj/%.o: %.cpp $(HEADERS)
 	$(CXX) -c $(xCXXFLAGS) -o $@ $<
 
-abccoind.exe: $(OBJS:obj/%=obj/%)
+yescoind.exe: $(OBJS:obj/%=obj/%)
 	$(CXX) $(xCXXFLAGS) $(xLDFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS)
 
 TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
@@ -119,15 +119,15 @@ TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
 obj-test/%.o: test/%.cpp $(HEADERS)
 	$(CXX) -c $(TESTDEFS) $(xCXXFLAGS) -o $@ $<
 
-test_abccoin.exe: $(TESTOBJS) $(filter-out obj/init.o obj/abccoind.o,$(OBJS:obj/%=obj/%))
+test_yescoin.exe: $(TESTOBJS) $(filter-out obj/init.o obj/yescoind.o,$(OBJS:obj/%=obj/%))
 	$(CXX) $(xCXXFLAGS) $(xLDFLAGS) -o $@ $(LIBPATHS) $^ -lboost_unit_test_framework-mt-s $(LIBS)
 
 
 clean:
 	-rm -f obj/*.o
-	-rm -f abccoind.exe
+	-rm -f yescoind.exe
 	-rm -f obj-test/*.o
-	-rm -f test_abccoin.exe
+	-rm -f test_yescoin.exe
 	-rm -f obj/build.h
 	cd leveldb && TARGET_OS=OS_WINDOWS_CROSSCOMPILE $(MAKE) clean && cd ..
 

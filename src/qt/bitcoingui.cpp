@@ -73,13 +73,13 @@ BitcoinGUI::BitcoinGUI(bool fIsTestnet, QWidget *parent) :
 #ifndef Q_OS_MAC
     if (!fIsTestnet)
     {
-        setWindowTitle(tr("ABCCoin") + " - " + tr("Wallet"));
+        setWindowTitle(tr("YesCoin") + " - " + tr("Wallet"));
         QApplication::setWindowIcon(QIcon(":icons/bitcoin"));
         setWindowIcon(QIcon(":icons/bitcoin"));
     }
     else
     {
-        setWindowTitle(tr("ABCCoin") + " - " + tr("") + " " + tr("[testnet]"));
+        setWindowTitle(tr("YesCoin") + " - " + tr("") + " " + tr("[testnet]"));
         QApplication::setWindowIcon(QIcon(":icons/bitcoin_testnet"));
         setWindowIcon(QIcon(":icons/bitcoin_testnet"));
     }
@@ -186,14 +186,14 @@ void BitcoinGUI::createActions(bool fIsTestnet)
     overviewAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_1));
     tabGroup->addAction(overviewAction);
 
-    sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send ABCCoin"), this);
+    sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send YesCoin"), this);
     sendCoinsAction->setStatusTip(tr("Transfer FFC to another Wallet"));
     sendCoinsAction->setToolTip(sendCoinsAction->statusTip());
     sendCoinsAction->setCheckable(true);
     sendCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
     tabGroup->addAction(sendCoinsAction);
 
-    receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive ABCCoin"), this);
+    receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive YesCoin"), this);
     receiveCoinsAction->setStatusTip(tr("Display your addresses for incoming transfers"));
     receiveCoinsAction->setToolTip(receiveCoinsAction->statusTip());
     receiveCoinsAction->setCheckable(true);
@@ -230,16 +230,16 @@ void BitcoinGUI::createActions(bool fIsTestnet)
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
     if (!fIsTestnet)
-        aboutAction = new QAction(QIcon(":/icons/bitcoin"), tr("&About ABCCoin"), this);
+        aboutAction = new QAction(QIcon(":/icons/bitcoin"), tr("&About YesCoin"), this);
     else
-        aboutAction = new QAction(QIcon(":/icons/bitcoin_testnet"), tr("&About ABCCoin"), this);
-    aboutAction->setStatusTip(tr("Show information about ABCCoin"));
+        aboutAction = new QAction(QIcon(":/icons/bitcoin_testnet"), tr("&About YesCoin"), this);
+    aboutAction->setStatusTip(tr("Show information about YesCoin"));
     aboutAction->setMenuRole(QAction::AboutRole);
     aboutQtAction = new QAction(QIcon(":/trolltech/qmessagebox/images/qtlogo-64.png"), tr("About &Qt"), this);
     aboutQtAction->setStatusTip(tr("Show information about Qt"));
     aboutQtAction->setMenuRole(QAction::AboutQtRole);
     optionsAction = new QAction(QIcon(":/icons/options"), tr("&Options..."), this);
-    optionsAction->setStatusTip(tr("Modify configuration options for ABCCoin"));
+    optionsAction->setStatusTip(tr("Modify configuration options for YesCoin"));
     optionsAction->setMenuRole(QAction::PreferencesRole);
     if (!fIsTestnet)
         toggleHideAction = new QAction(QIcon(":/icons/bitcoin"), tr("&Show / Hide"), this);
@@ -255,9 +255,9 @@ void BitcoinGUI::createActions(bool fIsTestnet)
     changePassphraseAction = new QAction(QIcon(":/icons/key"), tr("&Change Passphrase..."), this);
     changePassphraseAction->setStatusTip(tr("Change the passphrase used for Vault encryption"));
     signMessageAction = new QAction(QIcon(":/icons/edit"), tr("Sign &message..."), this);
-    signMessageAction->setStatusTip(tr("Sign messages with your ABCCoin addresses to prove you own them"));
+    signMessageAction->setStatusTip(tr("Sign messages with your YesCoin addresses to prove you own them"));
     verifyMessageAction = new QAction(QIcon(":/icons/transaction_0"), tr("&Verify message..."), this);
-    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified ABCCoin addresses"));
+    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified YesCoin addresses"));
 
     openRPCConsoleAction = new QAction(QIcon(":/icons/debugwindow"), tr("&Console"), this);
     openRPCConsoleAction->setStatusTip(tr("Open debugging and diagnostic console"));
@@ -359,12 +359,12 @@ void BitcoinGUI::createTrayIcon(bool fIsTestnet)
 
     if (!fIsTestnet)
     {
-        trayIcon->setToolTip(tr("ABCCoin client"));
+        trayIcon->setToolTip(tr("YesCoin client"));
         trayIcon->setIcon(QIcon(":/icons/toolbar"));
     }
     else
     {
-        trayIcon->setToolTip(tr("ABCCoin client") + " " + tr("[testnet]"));
+        trayIcon->setToolTip(tr("YesCoin client") + " " + tr("[testnet]"));
         trayIcon->setIcon(QIcon(":/icons/toolbar_testnet"));
     }
 
@@ -507,7 +507,7 @@ void BitcoinGUI::setNumConnections(int count)
     default: icon = ":/icons/connect_4"; break;
     }
     labelConnectionsIcon->setPixmap(QIcon(icon).pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to ABCCoin network", "", count));
+    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to YesCoin network", "", count));
 }
 
 void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
@@ -606,7 +606,7 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
 
 void BitcoinGUI::message(const QString &title, const QString &message, unsigned int style, bool *ret)
 {
-    QString strTitle = tr("ABCCoin"); // default title
+    QString strTitle = tr("YesCoin"); // default title
     // Default to information icon
     int nMBoxIcon = QMessageBox::Information;
     int nNotifyIcon = Notificator::Information;
@@ -737,7 +737,7 @@ void BitcoinGUI::dropEvent(QDropEvent *event)
         if (nValidUrisFound)
             walletFrame->gotoSendCoinsPage();
         else
-            message(tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid ABCCoin address or malformed URI parameters."),
+            message(tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid YesCoin address or malformed URI parameters."),
                       CClientUIInterface::ICON_WARNING);
     }
 
@@ -760,7 +760,7 @@ void BitcoinGUI::handleURI(QString strURI)
 {
     // URI has to be valid
     if (!walletFrame->handleURI(strURI))
-        message(tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid ABCCoin address or malformed URI parameters."),
+        message(tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid YesCoin address or malformed URI parameters."),
                   CClientUIInterface::ICON_WARNING);
 }
 
