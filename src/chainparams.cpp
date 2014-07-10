@@ -27,8 +27,8 @@ public:
         pchMessageStart[1] = 0xa6;
         pchMessageStart[2] = 0xf8;
         pchMessageStart[3] = 0x9d;
-        nDefaultPort = 5520;
-        nRPCPort = 5521;
+        nDefaultPort = 5512;
+        nRPCPort = 5513;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 20);
         nSubsidyHalvingInterval = 500000;
 
@@ -69,7 +69,7 @@ public:
         vSeeds.push_back(CDNSSeedData("192.241.216.245", "192.241.216.245"));
 
 
-        base58Prefixes[PUBKEY_ADDRESS] = 17;
+        base58Prefixes[PUBKEY_ADDRESS] = 0;
         base58Prefixes[SCRIPT_ADDRESS] = 30;
         base58Prefixes[SECRET_KEY] = 224;
 
